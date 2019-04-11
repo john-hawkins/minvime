@@ -1,0 +1,50 @@
+
+<div class="controlpanel text-center">
+    <form method="post" action="/analyse">
+     <div class="input-group" style="margin: 20 auto; width: 680px;">
+     <table>
+      <tr><td colspan=6></td></tr>
+      <tr><th colspan=3>Problem Details</th>
+          <th colspan=3>Costs and Benefits Table</th>
+      </tr>
+      <tr><th colspan=2></th>
+          <th></th><th>Negatives</th><th>Positives</th>
+          <th></th>
+      </tr>
+      <tr><td>Cases</td>
+          <td><input type="text" class="form-control" size="20" value='{{ cases }}' name='cases'></td>
+	  <td>False</td>
+          <td><input type="text" class="form-control" size="10" value='{{ fn }}' name='fn'></td>
+          <td><input type="text" class="form-control" size="10" value='{{ fp }}' name='fp'></td>
+          <td></td>
+      </tr>
+      <tr><td>Baserate</td>
+          <td><input type="text" class="form-control" size="20" value='{{ baserate }}' name='baserate'></td>
+	  <td>True</td>
+          <td><input type="text" class="form-control" size="10" value='{{ tn }}' name='tn'></td>
+          <td><input type="text" class="form-control" size="10" value='{{ tp }}' name='tp'></td>
+          <td></td>
+
+      </tr>
+      <tr>
+          <td>Min ROI</td>
+          <td><input type="text" class="form-control" size="20" value='{{ minroi }}' name='minroi'></td>
+          <td colspan=3></td>
+          <td><button id="update_button" type="submit" class="btn btn-danger">Update</button></td>
+      </tr>
+
+     </table>
+    </div>
+  </form>
+ <div id="placeholder" style="margin: 10 auto; width: 680px;"></div>
+</div>
+
+<script>
+  bootstrap_alert = function(message) {
+    $('#placeholder').html(
+      '<div class="alert alert-warning"><a class="close" data-dismiss="alert">×</a><span>'+message+'</span></div>');
+   }
+   $('#update_button').on('click', function() {bootstrap_alert('Please be patient, this can take a while.');
+});
+</script>
+

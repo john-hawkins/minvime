@@ -1,0 +1,15 @@
+{% include "header.html" %}
+
+{% include "config_form.html" %}
+
+<div class="text-center" style="margin: 20 auto; width: 680px;">
+    <table>
+        <tr><th>Metric</th><th>Estimated Minimum Requirement</th></tr>
+        <tr><td>AUC</td><td>{{ auc }}</td></tr>
+        <tr><td>Precision</td><td>{{ precision }}</td></tr>
+        <tr><td>Recall</td><td>{{ recall }}</td></tr>
+    </table>
+
+</div>
+
+{% include "footer.html" %}
