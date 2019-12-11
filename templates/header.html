@@ -1,6 +1,6 @@
 <html>
 <head>
-  <title>Estimating Minimum Required Model Performance</title>
+  <title>MinViME : Minimum Viable Model Estimator</title>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
@@ -24,7 +24,7 @@
   }
   .controlpanel {
       background-color: #e4e4e8;
-      padding: 20px 20px;
+      padding: 40px 20px;
       font-family: sans-serif;
   }
   td { 
@@ -45,7 +45,9 @@
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <a class="navbar-brand" href="/">Estimating Minimum Required Model Performance</a>
+      <a class="navbar-brand" href="/">
+      <img src="{{url_for('static', filename='logo_small.png')}}">
+      </a>
     </div>
     <div class="collapse navbar-collapse" id="myNavbar">
       <ul class="nav navbar-nav navbar-right">

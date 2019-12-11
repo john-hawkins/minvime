@@ -1,12 +1,77 @@
 {% include "header.html" %}
 
-{% include "config_form.html" %}
+<div class="controlpanel text-center">
+     <div class="input-group" style="margin: 60 auto; width: 680px;">
+     <table>
+      <tr> <th colspan=2 style="border-bottom: solid 1px;font-size:20px;">Binary Classification Analysis Options</th></tr>
+      <tr> <th>Payoff Matrix (Deterministic)</th> <th>Intervention Analysis (Probabilistic)</th> </tr>
+      <tr>
+          <td>
+              Use this method if you can say directly what the costs and benefits are of each of the potential outcomes of your
+              the decisions you will make. For example, the cost of a false positive, the benefit of a true positive.
+          </td>
+          <td>
+              Use this method if there is a probabilistic element to the impacts of the actions you will take based on the 
+              model predictions. For example, you will try to intervene to prevent a customer from churning when they are predicted to.
+              However, you will have to estimate the likelihood that the intervention will succeed.
+          </td>
+      </tr>
+      <tr>
+      <td>
+       <form method="post" action="/payoff_matrix">
+         <button type="submit" class="btn btn-danger">Apply Payoff Matrix Analysis</button>
+       </form>
+      </td>
+      <td>
+       <form method="get" action="/intervention">
+         <button type="submit" class="btn btn-danger">Apply Intervention Analysis</button>
+       </form>
+      </td>
+      </tr>
 
-<div class="text-center">
-     <p>Use the form above to set the cost/benefit trade-off 
-        parameters of your project</p>
-     <p>Then compute the minimum performance characteristics a model
-        will need in order to provide value.</p>
+      <tr> <th colspan=2 style="border-bottom: solid 1px;font-size:20px;">Regression/Time Series Analysis Options</th></tr>
+      <tr> <th>Proportional Analysis</th> <th>Thresholded Analysis</th> </tr>
+      <tr>
+          <td>
+              Use this method if the impact of your model can be estimated by a payoff or value that is
+              proportional to an error or accuracy metric. For example, each percent of error costs on average
+              $1000 per SKU per month.
+          </td>
+          <td>
+              Use this method if there is a hard cutoff in the impact for the model. For example, we incur a cost
+              of $1000 when the model is more than 10% too high, and $2000 when it is more than 5% too low.
+          </td>
+      </tr>
+      <tr>
+      <td>
+       <form method="get" action="/proportional">
+         <button type="submit" class="btn btn-danger">Apply Proportional Analysis</button>
+       </form>
+      </td>
+      <td>
+       <form method="get" action="/thresholded">
+         <button type="submit" class="btn btn-danger">Apply Thresholded Analysis</button>
+       </form>
+      </td>
+      </tr>
+
+     </table>
+    </div>
 </div>
 
+     <div class="input-group" style="margin: 60 auto; width: 680px;">
+     <table>
+      <tr> <th colspan=2>Notes</th></tr>
+      <tr>
+          <td>
+              These methods need to make some very strong assumptions about the way your model will be deployed and used.
+              Please read through the notes on each method and feel free to contribute ideas to the development of this tool.
+          </td>
+              @john_c_hawkins
+          </td>
+      </tr>
+     </table>
+    </div>
+
 {% include "footer.html" %}
+
