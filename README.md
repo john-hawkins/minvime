@@ -1,6 +1,8 @@
 MinViME - Minimum Viable Model Estimator 
 -------------------------------------------
 
+STATUS: INCOMPLETE -- THIS PROJECT IS A WORK IN PROGRESS
+
 For many business problems it is worthwhile understanding how accurate a
 machine learning model would need to be before you try and build it.
 
