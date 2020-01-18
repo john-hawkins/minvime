@@ -30,6 +30,13 @@ will affect the business outcome. This can be as either proportional costs for
 errors that are too high ot too low, or as costs for predictions above a specified
 margin of error.
 
+#### Caveats
+
+In order to produce a MAPE score regardless of the distribution we add a nominal value
+of 0.0001 to calculate the percentage error when actuals are zero. There are many situations
+in which this would not be acceptable, for example when the quantities being prediced are
+in fact very low value real numbers. If your target distribution has many zero values and 
+is confined to values that very close to zero then please ignore the MAPE estimates. 
 
 # Usage
 

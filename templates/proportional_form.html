@@ -1,0 +1,77 @@
+
+<div class="controlpanel text-center">
+
+    <form method="post" action="/analyse_proportional"  enctype="multipart/form-data">
+     <div class="input-group" style="margin: 20 auto; width: 680px;">
+     <table>
+      <tr><th colspan=6>Distributiom</th></tr>
+      <tr>
+          <td>Mean</td>
+          <td><input type="text" class="form-control" size="20" value='{{ mean }}' name='mean'></td>
+          <td>Max</td>
+          <td><input type="text" class="form-control" size="20" value='{{ max }}' name='max'></td>
+          <td>Min</td>
+          <td><input type="text" class="form-control" size="20" value='{{ min }}' name='min'></td>
+      </tr>  
+      <tr>
+          <td colspan=5>Alternatively Upload a Sample of the Target Values</td>
+          <td><input type="file" name="file" class="form-control"></td>
+      </tr>
+      <tr><th colspan=6>Business Impact/Costs</th></tr>
+      <tr>
+          <td colspan=3>Value of Each Prediction</td>
+          <td><input type="text" class="form-control" size="20" value='{{ pred_value }}' name='pred_value'></td>
+          <td colspan=2></td>
+      </tr>
+      <tr>
+          <td colspan=3>Over Prediction Cost</td>
+          <td><input type="text" class="form-control" size="20" value='{{ over_pred }}' name='over_pred'></td>
+          <td><i>per</i></td>
+          <td>
+              <select name='over_pred_unit'> 
+                  <option value="percent">Percentage point</option>
+                  <option value="unit">Absolute Unit</option>      
+              </select>
+          </td>
+      </tr>
+      <tr>
+          <td colspan=3>Under Prediction Cost</td>
+          <td><input type="text" class="form-control" size="20" value='{{ under_pred }}' name='under_pred'></td>
+          <td><i>per</i></td>
+          <td>
+              <select name='under_pred_unit'>
+                  <option value="percent">Percentage point</option>
+                  <option value="unit">Absolute Unit</option>      
+              </select>
+          </td>
+      </tr>
+
+      <tr>
+          <td colspan=3>Records per Time Period</td>
+          <td><input type="text" class="form-control" size="20" value='{{ cases }}' name='cases'></td>
+          <td colspan=2></td>
+      </tr>
+      <tr>
+          <td colspan=3>Minimum ROI</td>
+          <td><input type="text" class="form-control" size="20" value='{{ minroi }}' name='minroi'></td>
+          <td></td>
+          <td><button id="update_button" type="submit" class="btn btn-danger">Update</button></td>
+      </tr>
+     </table>
+
+
+     </table>
+    </div>
+  </form>
+ <div id="placeholder" style="margin: 10 auto; width: 680px;"></div>
+</div>
+
+<script>
+  bootstrap_alert = function(message) {
+    $('#placeholder').html(
+      '<div class="alert alert-warning"><a class="close" data-dismiss="alert">×</a><span>'+message+'</span></div>');
+   }
+   $('#update_button').on('click', function() {bootstrap_alert('Please be patient, this can take a while.');
+});
+</script>
+

@@ -1,0 +1,22 @@
+{% include "header.html" %}
+
+{% include "proportional_form.html" %}
+
+<div class="text-center" style="margin: 20 auto; width: 680px;">
+    <table>
+        <tr><th>Metric</th><th>Estimated Minimum Requirement</th></tr>
+        <tr><td>RMSE</td><td>{{ rmse }}</td></tr>
+        <tr><td>MAPE</td><td>{{ mape }}</td></tr>
+        <tr><td>MAE</td><td>{{ mae }}</td></tr>
+    </table>
+
+</div>
+
+<div class="text-center">
+     <p>The metric above are an estimate of what the minimal performance will be to satisfy
+        your business requirements.
+        </p>
+</div>
+
+
+{% include "footer.html" %}
