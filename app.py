@@ -153,7 +153,7 @@ def proportional():
     )
 
 # ###################################################################################
-# Intervention Page
+# Analyse Proportional Costs for a Regression Problem
 @app.route('/analyse_proportional', methods = ['POST', 'GET'])
 def analyse_proportional():
     minroi = float(request.form["minroi"])
@@ -205,7 +205,78 @@ def analyse_proportional():
 # 
 @app.route('/thresholded')
 def thresholded():
-        return render_template("thresholded.html")
+    minroi = 10000
+    cases = 10000
+    pred_value = 100
+    over_pred = -10
+    over_pred_threshold = 10
+    under_pred = -10
+    under_pred_threshold = 10
+    mean = 100
+    min = 0
+    max = 500
+
+    return render_template("thresholded.html",
+        minroi=minroi, cases=cases, mean=mean, max=max, min=min,
+        pred_value=pred_value, under_pred=under_pred, under_pred_threshold=under_pred_threshold, 
+        over_pred=over_pred, over_pred_threshold=over_pred_threshold
+    )
+
+
+# ###################################################################################
+# Analyse thresholded Costs for a Regression Problem
+@app.route('/analyse_thresholded', methods = ['POST', 'GET'])
+def analyse_thresholded():
+    minroi = float(request.form["minroi"])
+    cases = float(request.form["cases"])
+    pred_value = float(request.form["pred_value"])
+    over_pred = float(request.form["over_pred"])
+    over_pred_unit = request.form["over_pred_unit"]
+    over_pred_threshold = request.form["over_pred_threshold"]
+    under_pred = float(request.form["under_pred"])
+    under_pred_unit = request.form["under_pred_unit"]
+    under_pred_threshold = request.form["under_pred_threshold"]
+    mean = float(request.form["mean"])
+    min = float(request.form["min"])
+    max = float(request.form["max"])
+
+    # CHECK FOR THE SAMPLE FILE
+    sample_file = False
+    if 'file' in request.files:
+        file = request.files['file']
+        if file.filename != '':
+            sample_file = True
+
+    if sample_file and allowed_file(file.filename):
+        filename = secure_filename(file.filename)
+        filepath = os.path.join(UPLOAD_FOLDER, filename)
+        file.save(filepath)
+        dist, message = r_esti.extract_distribution_from_sample(filepath)
+    else:
+        dist, message = r_esti.produce_distribution_sample(mean=mean, max=max, min=min)
+
+    if len(dist) == 0:
+        return render_template("error.html", message=message, link="thresholded.html")
+
+    rmse, mape, mae = r_esti.estimate_model_requirements_proportional(
+        dist=dist, cases=cases,
+        pred_value=pred_value, under_pred=under_pred, under_pred_unit=under_pred_unit,
+        over_pred=over_pred, over_pred_unit=over_pred_unit, minroi=minroi
+    )
+
+    rmse = round(rmse, 3)
+    mape = round(mape, 3)
+    mae = round(mae, 3)
+
+    return render_template("analyse_thresholded.html",
+        rmse=rmse, mae=mae, mape=mape, minroi=minroi, cases=cases,
+        mean=mean, max=max, min=min,
+        pred_value=pred_value, under_pred=under_pred, under_pred_threshold=under_pred_threshold,
+        over_pred=over_pred, over_pred_threshold=over_pred_threshold
+    )
+
+
+
 
 # ###################################################################################
 # About Page
