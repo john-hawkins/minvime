@@ -258,10 +258,10 @@ def analyse_thresholded():
     if len(dist) == 0:
         return render_template("error.html", message=message, link="thresholded.html")
 
-    rmse, mape, mae = r_esti.estimate_model_requirements_proportional(
-        dist=dist, cases=cases,
-        pred_value=pred_value, under_pred=under_pred, under_pred_unit=under_pred_unit,
-        over_pred=over_pred, over_pred_unit=over_pred_unit, minroi=minroi
+    rmse, mape, mae = r_esti.estimate_model_requirements_thresholded(
+        dist=dist, cases=cases, pred_value=pred_value, 
+        under_pred=under_pred, under_pred_unit=under_pred_unit, under_pred_threshold=under_pred_threshold,
+        over_pred=over_pred, over_pred_unit=over_pred_unit, over_pred_threshold=over_pred_threshold, minroi=minroi
     )
 
     rmse = round(rmse, 3)
