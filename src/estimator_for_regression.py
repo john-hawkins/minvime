@@ -1,6 +1,6 @@
 """ 
-    Estimator for Regression
-    Functions for estimating model performance requirements from business criteria
+    Performance Estimator for Regression Models
+    Functions for estimating the required model performance requirements from business criteria
 """
 import random
 import numpy as np
@@ -106,15 +106,13 @@ def estimate_model_requirements_proportional( dist, cases, pred_value, under_pre
 def calculate_candidate_metrics(dist, candidate):
     errors = [ x-y for x,y in zip(dist, candidate) ]
     sqrerrors = [ (x-y)*(x-y) for x,y in zip(dist, candidate) ] 
+    zero_adj_dist = [ 0.0001 if x==0 else x for x in dist]
+    abspcterror = [ 100*abs(x-y)/x for x,y in zip(zero_adj_dist, candidate) ]
     rmse = np.sqrt(np.mean(sqrerrors))
     mae = np.mean(np.abs(errors))
-    mape = 10
-    nominal_actuals = add_nominals(dist)
+    mape = np.mean(abspcterror)
     return rmse, mape, mae
 
-########################################################################
-def add_nominals(dist):
-    return list( map( lambda x: 0.0001 if x==0 else x, dist) ) 
 
 ########################################################################
 def generate_candidate_predictions(dist):
