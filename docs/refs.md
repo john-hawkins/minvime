@@ -7,9 +7,11 @@ Bradley gives a discussion of methods for evaluating and comparing classifiers. 
 of common metrics and talks about ROI estimation in terms of misclassification costs. He dismisses this
 with the observations that we usually do not know the associated costs of misclassification. He moves
 on to describe a range of methods for estimating the area under the ROC curve and experiments designed to
-evaluate this a single metric of classifier evaluation. He concludes with the observation that AUC is 
-equivalent to the Wilcoxon test of ranks. 
-Simulations are run on six medical data sets to establish that ranking classifiers
+evaluate this a single metric of classifier evaluation. 
+Simulations are run on six medical data sets to evaluate the AUC as an metric for comparing models.
+He concludes with a range of observation about the advantages of the AUC for ranking models, and an observation
+that standard deviation across cross validations will function as an approximation of standard error of the AUC
+estimated with the approximation to the Wilcoxon statistic.
 
 [https://doi.org/10.1016/S0031-3203(96)00142-2](https://doi.org/10.1016/S0031-3203(96)00142-2)
 
