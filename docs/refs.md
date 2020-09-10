@@ -45,5 +45,9 @@ using the lift chart to generate an ROI plot to determine the optimal threshold.
 
 
 
+ 
+# Fermi Estimates
+
+https://www.lesswrong.com/posts/PsEppdvgRisz5xAHG/fermi-estimates
 
 
