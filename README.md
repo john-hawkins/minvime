@@ -1,5 +1,8 @@
 MinViME - Minimum Viable Model Estimator 
-----------------------------------------
+=====================================================
+
+![build](https://github.com/john-hawkins/minvime/workflows/build/badge.svg)
+
 ```
 STATUS: INCOMPLETE -- THIS PROJECT IS A WORK IN PROGRESS
 ```
