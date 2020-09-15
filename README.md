@@ -1,6 +1,7 @@
 MinViME - Minimum Viable Model Estimator 
 =====================================================
 
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 ![build](https://github.com/john-hawkins/minvime/workflows/build/badge.svg)
 
 ```
