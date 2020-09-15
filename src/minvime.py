@@ -1,12 +1,25 @@
+# -*- coding: utf-8 -*-
+
+"""minvime: provides entry point main() which loads the Flask app."""
+
+__version__ = "0.1.0"
+
 from flask import Flask, flash, request, redirect, render_template, url_for
 from werkzeug.utils import secure_filename
-
 from pathlib import Path
 import os
 
-import minvime.estimator as esti # The file minvime/estimator.py
+from .estimator_classification import estimate_intervention_requirements
+from .estimator_classification import estimate_binary_model_requirements
 
-import minvime.estimator_for_regression as r_esti # The minvime/estimator_for_regression.py
+from .estimator_regression import extract_distribution_from_sample
+from .estimator_regression import produce_distribution_sample
+from .estimator_regression import estimate_model_requirements_proportional
+from .estimator_regression import estimate_model_requirements_thresholded
+
+#import .estimator as esti # The file minvime/estimator.py
+
+#import .estimator_for_regression as r_esti # The minvime/estimator_for_regression.py
 
 UPLOAD_FOLDER = './uploads'
 
@@ -16,6 +29,13 @@ def allowed_file(filename):
            filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
 
 app = Flask(__name__)
+
+# ###################################################################################
+#    MAIN APPLICATION ENTRY POINT
+#      With debug=True, Flask server will auto-reload
+#      when there are code changes
+def main():
+    app.run(port=5000, debug=True)
 
 
 # ###################################################################################
@@ -67,7 +87,7 @@ def analyse():
         cases = 10000
         baserate = 0.001
 
-    auc, prec, recall = esti.estimate_binary_model_requirements(
+    auc, prec, recall = estimate_binary_model_requirements(
         tp=tp, fp=fp, tn=tn, fn=fn, cases=cases, baserate=baserate, minroi=minroi)
 
     auc = round(auc, 3)
@@ -120,11 +140,11 @@ def analyse_intervention():
        payoff = 1000
        payback = -400
 
-    tp, fp, tn, fn = esti.estimate_intervention_requirements(cases=cases, baserate=baserate,
+    tp, fp, tn, fn = estimate_intervention_requirements(cases=cases, baserate=baserate,
                                                 cost=cost, payoff=payoff, payback=payback,
                                                 succrate=succrate, backfire=backfire)
 
-    auc, prec, recall = esti.estimate_binary_model_requirements(
+    auc, prec, recall = estimate_binary_model_requirements(
         tp=tp, fp=fp, tn=tn, fn=fn, cases=cases, baserate=baserate, minroi=minroi)
 
     auc = round(auc, 3)
@@ -182,14 +202,14 @@ def analyse_proportional():
         filename = secure_filename(file.filename)
         filepath = os.path.join(UPLOAD_FOLDER, filename)
         file.save(filepath)
-        dist, message = r_esti.extract_distribution_from_sample(filepath)
+        dist, message = extract_distribution_from_sample(filepath)
     else:
-        dist, message = r_esti.produce_distribution_sample(mean=mean, max=max, min=min)
+        dist, message = produce_distribution_sample(mean=mean, max=max, min=min)
 
     if len(dist) == 0:
         return render_template("error.html", message=message, link="proportional.html")
 
-    rmse, mape, mae = r_esti.estimate_model_requirements_proportional(
+    rmse, mape, mae = estimate_model_requirements_proportional(
         dist=dist, cases=cases,
         pred_value=pred_value, under_pred=under_pred, under_pred_unit=under_pred_unit,
         over_pred=over_pred, over_pred_unit=over_pred_unit, minroi=minroi
@@ -254,14 +274,14 @@ def analyse_thresholded():
         filename = secure_filename(file.filename)
         filepath = os.path.join(UPLOAD_FOLDER, filename)
         file.save(filepath)
-        dist, message = r_esti.extract_distribution_from_sample(filepath)
+        dist, message = extract_distribution_from_sample(filepath)
     else:
-        dist, message = r_esti.produce_distribution_sample(mean=mean, max=max, min=min)
+        dist, message = produce_distribution_sample(mean=mean, max=max, min=min)
 
     if len(dist) == 0:
         return render_template("error.html", message=message, link="thresholded.html")
 
-    rmse, mape, mae = r_esti.estimate_model_requirements_thresholded(
+    rmse, mape, mae = estimate_model_requirements_thresholded(
         dist=dist, cases=cases, pred_value=pred_value,
         under_pred=under_pred, under_pred_unit=under_pred_unit, under_pred_threshold=under_pred_threshold,
         over_pred=over_pred, over_pred_unit=over_pred_unit, over_pred_threshold=over_pred_threshold, minroi=minroi
@@ -285,10 +305,7 @@ def about():
         return render_template("about.html")
 
 
+
 # ###################################################################################
-# With debug=True, Flask server will auto-reload
-# when there are code changes
 if __name__ == '__main__':
-    app.run(port=5000, debug=True)
-
-
+    main()

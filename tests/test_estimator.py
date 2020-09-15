@@ -1,9 +1,9 @@
 import sys
 import pytest
-import minvime.estimator as esti # The file ../minvime/estimator.py
+import src.estimator_classification as esti # The file ../src/estimator_classification.py
 
 """
-This file (test_estimator.py) contains the unit tests for the minvime/estimator.py file.
+This file (test_estimator.py) contains the unit tests for the minvime/estimator_classification.py file.
 """
 
 

@@ -1,0 +1,39 @@
+# -*- coding: utf-8 -*-
+ 
+"""setup.py: setuptools control."""
+ 
+import re
+from setuptools import setup
+ 
+version = re.search(
+        '^__version__\s*=\s*"(.*)"',
+        open('src/minvime.py').read(),
+        re.M
+    ).group(1)
+ 
+with open("README.md", "rb") as f:
+    long_descr = f.read().decode("utf-8")
+
+setup(
+    name = "minvime",
+    packages = ["minvime"],
+    license = "MIT",
+    install_requires = ['pandas>=0.25.3', 'numpy>=1.16.4'],
+    entry_points = {
+        "console_scripts": ['minvime = src.minvime:main']
+    },
+    include_package_data=True,
+    version = version,
+    description = "Python Flask Application for Estimating Minimum Viable Model Performance.",
+    long_description = long_descr,
+    long_description_content_type='text/markdown',
+    author = "John Hawkins",
+    author_email = "hawkins.john.c@gmail.com",
+    url = "http://john-hawkins.github.io",
+    project_urls = {
+        'Documentation': "http://john-hawkins.github.io",
+        'Source': "https://github.com/john-hawkins/minvime",
+        'Tracker': "https://github.com/john-hawkins/minvime/issues" 
+      }
+    )
+
