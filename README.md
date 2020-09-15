@@ -47,8 +47,55 @@ If your target distribution has many zero values and
 is confined to values that very close to zero then please ignore the MAPE estimates. 
 
 
-# Usage
+## Usage
 
+You can use this application in multiple ways. The core application will launch a Flask
+web application through which you can enter the parameters of the business problem you
+require an estimate for.
 
+### Web Application
 
+This web application can be launched via the runner:
+
+```
+./minvime-runner.py 
+```
+
+Or you caniInvoke the directory as a package:
+
+```
+python -m minvime
+```
+
+Or simply install the package and use the command line application directly
+
+#### Installation
+
+Installation from the source tree:
+
+```
+python setup.py install
+```
+
+(or via pip from PyPI):
+
+```
+pip install minvime 
+```
+
+Now, the ``minvime`` command will launch the application 
+
+```
+minvime
+```
+
+### Library
+
+Alternatively you can use minvime as a library of functions to use inside your own
+applications or Jupyter Notebooks
+
+```
+import minvime as mvime
+
+```
 
