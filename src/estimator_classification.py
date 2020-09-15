@@ -69,7 +69,10 @@ def calculate_peak_roi(fprates, tprates, tp, fp, tn, fn, num_pos, num_neg):
          roi = temp
          tps = num_pos * true_positive_rate
          fps = num_neg * false_positive_rate
-         result_precision = tps/(tps+fps)
+         if (tps+fps) > 0:
+             result_precision = tps/(tps+fps)
+         else:
+             result_precision = 0
          result_recall = true_positive_rate
    return roi,result_precision,result_recall
 

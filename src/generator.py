@@ -28,7 +28,7 @@ def produce_distribution_sample(mean, max, min):
     """ Given some simple parameters we generate a sample of target values. TODO: This needs work """
     # START WITH SAMPLES BETWEEN MIN AND MAX
     baseline = generate_min_max_baseline(min, max)
-    threshold = (max-min)/1000
+    threshold = (max-min)/200
     enhanced = resample_toward_mean(baseline, mean, threshold)
     return enhanced, ""
 
@@ -51,22 +51,9 @@ def resample_toward_mean(baseline, mean, threshold):
     return rez
 
 ######################################################################
-def generate_min_max_baseline(min, max):
+def generate_min_max_baseline(min, max, sample_size=1000):
     difference = max-min
-    newmax = max
-    newmin = min
-    denom = 1
-    if difference<1:
-        denom = 10000
-    elif difference<10:
-        denom = 1000
-    elif difference<100:
-        denom = 100
-    elif difference<1000:
-        denom = 10
-    newmax = int(max * denom)
-    newmin = int(min * denom)
-    return [x/denom for x in range(newmin, newmax)]
+    return [min + (difference * x/(sample_size-1)) for x in range(sample_size)]
 
 
 ########################################################################
