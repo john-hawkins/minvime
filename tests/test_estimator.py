@@ -14,14 +14,14 @@ def test_estimate_model_requirements():
        Test the ROI estimator for binary classification models.
     """
 
-    auc, prec, recall = esti.estimate_binary_model_requirements(
+    auc, prec, recall, fprs, tprs  = esti.estimate_binary_model_requirements(
         tp=2000, fp=-100, tn=0, fn=0, cases=100000,
         baserate=0.001, minroi=10000
     )
 
-    assert round(auc,3) == 0.892
-    assert round(prec,4) == 0.0596
-    assert round(recall,4) == 0.3164
+    assert round(auc,3) == 0.723
+    assert round(prec,4) == 0.064
+    assert round(recall,4) == 0.2049
 
 
 def test_estimate_intervention_requirements():
