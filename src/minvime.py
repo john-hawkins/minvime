@@ -4,7 +4,7 @@
 
 __version__ = "0.1.0"
 
-from flask import Flask, flash, request, redirect, render_template, url_for
+from flask import Flask, flash, request, redirect, render_template, url_for, make_response
 from werkzeug.utils import secure_filename
 from pathlib import Path
 import os
@@ -48,12 +48,12 @@ def index():
 # Cost Benefit Page
 @app.route('/payoff_matrix', methods = ['POST', 'GET'])
 def payoff_matrix():
-    tp = 5000
-    fp = -50
+    tp = 2000
+    fp = -150
     tn = 0
     fn = 0
     minroi = 10000
-    cases = 10000
+    cases = 1000000
     baserate = 0.001
     if request.method == 'POST':
        if 'tp' in request.values:
@@ -79,15 +79,15 @@ def analyse():
         cases = float(request.form["cases"])
         baserate = float(request.form["baserate"])
     else:
-        tp = 5000
-        fp = -50
+        tp = 2000
+        fp = -150
         tn = 0
         fn = 0
         minroi = 10000
-        cases = 10000
+        cases = 1000000
         baserate = 0.001
 
-    auc, prec, recall = estimate_binary_model_requirements(
+    auc, prec, recall, fprs, tprs = estimate_binary_model_requirements(
         tp=tp, fp=fp, tn=tn, fn=fn, cases=cases, baserate=baserate, minroi=minroi)
 
     auc = round(auc, 3)
@@ -95,21 +95,20 @@ def analyse():
     recall = round(recall, 3)
 
     return render_template("analyse.html", auc=auc, precision=prec, recall=recall,
-        tp=tp, fp=fp, tn=tn, fn=fn, cases=cases, baserate=baserate, minroi=minroi)
+        tp=tp, fp=fp, tn=tn, fn=fn, cases=cases, baserate=baserate, minroi=minroi, fprs=fprs, tprs=tprs)
 
 # ###################################################################################
 # Intervention Page
 @app.route('/intervention')
 def intervention():
     minroi = 10000
-    cases = 10000
-    cost  = 10
-    baserate = 0.01
+    cases = 1000000
+    cost  = -10
+    baserate = 0.001
     succrate = 0.1
     backfire = 0.03
-    payoff = 1000
-    payback = -400
-
+    payoff = 2000
+    payback = -100
 
     return render_template("intervention.html",
         minroi=minroi, cases=cases, baserate=baserate,
@@ -132,19 +131,19 @@ def analyse_intervention():
        minroi = float(request.form["minroi"])
     else:
        minroi = 10000
-       cases = 10000
-       cost  = 10
-       baserate = 0.01
+       cases = 1000000
+       cost  = -10
+       baserate = 0.001
        succrate = 0.1
        backfire = 0.03
-       payoff = 1000
-       payback = -400
+       payoff = 2000
+       payback = -100
 
     tp, fp, tn, fn = estimate_intervention_requirements(cases=cases, baserate=baserate,
                                                 cost=cost, payoff=payoff, payback=payback,
                                                 succrate=succrate, backfire=backfire)
 
-    auc, prec, recall = estimate_binary_model_requirements(
+    auc, prec, recall, fprs, tprs = estimate_binary_model_requirements(
         tp=tp, fp=fp, tn=tn, fn=fn, cases=cases, baserate=baserate, minroi=minroi)
 
     auc = round(auc, 3)
@@ -155,7 +154,7 @@ def analyse_intervention():
         auc=auc, precision=prec, recall=recall,
         minroi=minroi, cases=cases, baserate=baserate,
         cost=cost, payoff=payoff, payback=payback,
-        succrate=succrate, backfire=backfire
+        succrate=succrate, backfire=backfire, fprs=fprs, tprs=tprs
     )
 
 # ###################################################################################
@@ -297,6 +296,41 @@ def analyse_thresholded():
         pred_value=pred_value, under_pred=under_pred, under_pred_threshold=under_pred_threshold,
         over_pred=over_pred, over_pred_threshold=over_pred_threshold
     )
+
+
+
+# ###################################################################################
+# About Page
+@app.route("/showplot")
+def showplot():
+
+    fprs = request.args.get('fprs')
+    tprs = request.args.get('tprs')
+    print("FPRS:", fprs)
+    print("TPRS:", tprs)
+    fpr = fprs[1:-1].replace("e 00","").split()
+    tpr = tprs[1:-1].replace("e 00","").split()
+    print("FPR:", fpr)
+    print("TPR:", tpr)
+    x = [ float(x) for x in fpr]
+    y = [ float(x) for x in tpr]
+
+    from io import BytesIO
+    from matplotlib.backends.backend_agg import FigureCanvasAgg as FigureCanvas
+    from matplotlib.figure import Figure
+
+    fig=Figure()
+    ax=fig.add_subplot(111)
+    ax.plot(x, y, '-')
+    ax.set_title("Estimated Minimum Viable ROC")
+    ax.set_xlabel("False Positive Rate")
+    ax.set_ylabel("True Positive Rate")
+    canvas=FigureCanvas(fig)
+    png_output = BytesIO()
+    canvas.print_png(png_output)
+    response=make_response(png_output.getvalue())
+    response.headers['Content-Type'] = 'image/png'
+    return response
 
 # ###################################################################################
 # About Page

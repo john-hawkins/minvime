@@ -5,7 +5,7 @@ MinViME - Minimum Viable Model Estimator
 ![build](https://github.com/john-hawkins/minvime/workflows/build/badge.svg)
 
 ```
-STATUS: INCOMPLETE -- THIS PROJECT IS A WORK IN PROGRESS
+STATUS: Functional
 ```
 
 For many business problems it is worthwhile understanding how accurate a
@@ -29,8 +29,13 @@ that satisfy the requirements. The constraints need to be provided as:
 * The required ROI
 * Information about the volume and frequency of the event you are predicting.
 
-### For Regression/Time Series Problems
 
+See examples in the [scripts directory](paper_simulation_one.py)
+
+### For Regression/Time Series Problems
+```
+In Progress
+```
 The application will make an estimate in terms of the minimum RMSE, MAE, and MAPE.
 You will need to specify how the difference between actual and predicted values
 will affect the business outcome. This can be as either proportional costs for 

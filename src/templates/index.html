@@ -4,14 +4,14 @@
      <div class="input-group" style="margin: 60 auto; width: 680px;">
      <table>
       <tr> <th colspan=2 style="border-bottom: solid 1px;font-size:20px;">Binary Classification Analysis Options</th></tr>
-      <tr> <th>Payoff Matrix (Deterministic)</th> <th>Intervention Analysis (Probabilistic)</th> </tr>
+      <tr> <th>Cost Matrix (Deterministic)</th> <th>Intervention Analysis (Stochastic)</th> </tr>
       <tr>
           <td>
               Use this method if you can say directly what the costs and benefits are of each of the potential outcomes of your
               the decisions you will make. For example, the cost of a false positive, the benefit of a true positive.
           </td>
           <td>
-              Use this method if there is a probabilistic element to the impacts of the actions you will take based on the 
+              Use this method if there is a stochastic element to the impacts of the actions you will take based on the 
               model predictions. For example, you will try to intervene to prevent a customer from churning when they are predicted to.
               However, you will have to estimate the likelihood that the intervention will succeed.
           </td>
@@ -19,7 +19,7 @@
       <tr>
       <td>
        <form method="post" action="/payoff_matrix">
-         <button type="submit" class="btn btn-danger">Apply Payoff Matrix Analysis</button>
+         <button type="submit" class="btn btn-danger">Apply Cost Matrix Analysis</button>
        </form>
       </td>
       <td>
@@ -28,7 +28,7 @@
        </form>
       </td>
       </tr>
-
+<!--
       <tr> <th colspan=2 style="border-bottom: solid 1px;font-size:20px;">Regression/Time Series Analysis Options</th></tr>
       <tr> <th>Proportional Analysis</th> <th>Thresholded Analysis</th> </tr>
       <tr>
@@ -54,7 +54,7 @@
        </form>
       </td>
       </tr>
-
+-->
      </table>
     </div>
 </div>

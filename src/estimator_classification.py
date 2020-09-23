@@ -8,10 +8,9 @@ import numpy as np
 
 def estimate_binary_model_requirements(tp, fp, tn, fn, cases, baserate, minroi=0):
     """ Determine the minimal performance characteristics of a binary classification model """
-    exponent_range = [4, 6, 8, 10, 12, 16, 20, 24, 28, 32, 40, 50, 60, 70, 80, 90, 100]
-    alpha_range = [0.01, 0.05, 0.1, 0.15, 0.2, 0.25, 0.3, 0.35, 0.4, 0.45, 0.5, 0.55, 
+    beta_range = [2, 3, 4, 5, 6, 8, 10, 12, 14, 16, 20, 25, 30, 35, 40, 45, 50, 60, 70, 80, 90, 100 ]
+    alpha_range = [0.01, 0.03, 0.05, 0.1, 0.15, 0.2, 0.25, 0.3, 0.35, 0.4, 0.45, 0.5, 0.55, 
                    0.6, 0.65, 0.7, 0.75, 0.8, 0.85, 0.9, 0.93, 0.95, 0.97, 0.99]
-    formula = 'alpha*(-(x-1)**expon+1)+(1-alpha)*x'
     fprates = [0.0, 0.00001, 0.0001, 0.001, 0.002, 0.003, 0.004, 0.005, 0.01, 0.015, 
                0.02,0.025, 0.03, 0.035, 0.04, 0.045, 0.05, 0.055, 0.06, 0.065, 0.07, 
                0.075, 0.08, 0.09, 0.1, 0.15, 0.2, 0.25, 0.3, 0.35, 0.4, 0.45, 0.5, 
@@ -21,6 +20,7 @@ def estimate_binary_model_requirements(tp, fp, tn, fn, cases, baserate, minroi=0
     min_auc = 1.0
     min_precision = 1.0
     min_recall = 1.0
+    tprs = []
     current_min_roi = 9999999999999
     num_pos = cases * baserate
     num_neg = cases - num_pos 
@@ -30,26 +30,34 @@ def estimate_binary_model_requirements(tp, fp, tn, fn, cases, baserate, minroi=0
     # range of ROC curves.
     ###############################################
     combinations = 0
-    for expon_i in range( len(exponent_range) ):
-        expon = exponent_range[expon_i]
+    for b_i in range( len(beta_range) ):
+        beta = beta_range[b_i]
         for alpha_i in range( len(alpha_range) ):
             alpha = alpha_range[alpha_i]
-            x = np.array(fprates)  
-            y = eval(formula)
-            auc = calculate_auc(x, y)
+            auc, x, y = generate_roc_auc(fprates, alpha, beta)
             roi, precision, recall = calculate_peak_roi(
                 fprates, y, tp, fp, tn, fn, num_pos, num_neg
             )
-            if (auc < min_auc) & (roi > minroi):
+            if (auc <= min_auc) & (roi >= minroi):
                 min_auc = auc
                 min_precision = precision
                 min_recall = recall
                 current_min_roi = roi
+                tprs = y
             combinations =  combinations + 1
-    #print("Tested ", combinations, " different AUC plots")
-    #print("Number of Exponents", len(exponent_range))
-    #print("Number of Alpha Weights", len(alpha_range))
-    return min_auc, min_precision, min_recall
+    print("Tested ", combinations, " different AUC plots")
+    print("Number of Exponents", len(beta_range))
+    print("Number of Alpha Weights", len(alpha_range))
+    return min_auc, min_precision, min_recall, x, tprs
+
+######################################################################
+def generate_roc_auc(fprates, alpha, beta):
+    formula = 'alpha*(-(x-1)**(2*beta)+1)+(1-alpha)*x'
+    x = np.array(fprates)
+    y = eval(formula)
+    auc = calculate_auc(x, y)
+    return auc, x, y
+
 
 ######################################################################
 
@@ -96,6 +104,8 @@ def calculate_auc(fprates, tprates):
 ########################################################################
  
 def estimate_intervention_requirements(cases, baserate, cost, payoff, payback, succrate, backfire):
+   if cost < 0:
+      cost = 0 - cost
    tp = payoff * succrate - cost
    fp = payback * backfire - cost
    tn = 0
