@@ -3,6 +3,7 @@
     Functions for estimating model performance requirements from business criteria
 """
 import numpy as np
+import math
 
 ######################################################################
 
@@ -20,7 +21,7 @@ def estimate_binary_model_requirements(tp, fp, tn, fn, cases, baserate, minroi=0
     min_auc = 1.0
     min_precision = 1.0
     min_recall = 1.0
-    tprs = []
+    tprs = np.array([1.0 for x in fprates])
     current_min_roi = 9999999999999
     num_pos = cases * baserate
     num_neg = cases - num_pos 
@@ -48,7 +49,7 @@ def estimate_binary_model_requirements(tp, fp, tn, fn, cases, baserate, minroi=0
     print("Tested ", combinations, " different AUC plots")
     print("Number of Exponents", len(beta_range))
     print("Number of Alpha Weights", len(alpha_range))
-    return min_auc, min_precision, min_recall, x, tprs
+    return min_auc, min_precision, min_recall, np.array(fprates), tprs
 
 ######################################################################
 def generate_roc_auc(fprates, alpha, beta):
@@ -115,22 +116,24 @@ def estimate_intervention_requirements(cases, baserate, cost, payoff, payback, s
 
 ########################################################################
 
+def simplicity_estimate(tp, fp, cases, baserate, minroi=0):
+    minp = minroi / tp
+    fp = 0 - fp # THE COST IS COLLECTED AS A NEGATIVE NUMBER FROM THE APPLICATION
+    p = round(cases * baserate)
+    n = cases - p
+    if p <= minp:
+        return 0.0
+    total_area = (p*n)
+    tri_y = (p-minp) 
+    tri_x = (tp/fp)*(p-minp) 
+    temp = nth_triangle(tri_y)
+    if tri_x > n:
+        temp = temp - nth_triangle(tri_x-n)
+    return temp / total_area 
 
-########################################################################
-#
-#formula = 'alpha*(-(x-1)**expon+1)+(1-alpha)*x'
-#exponent_range = [4, 8, 16, 32, 64]
-#alpha_range = [0.1, 0.5, 0.8, 0.9, 0.95]
-#fprates = [0.0, 0.0001, 0.001, 0.005, 0.01, 0.02, 0.03, 0.04, 0.05, 0.06, 0.07, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1.0]
-#for expon_i in range( len(exponent_range) ):
-#    expon = exponent_range[expon_i]
-#    for alpha_i in range( len(alpha_range) ):
-#        alpha = alpha_range[alpha_i]
-#        x = np.array(fprates)    
-#        y = eval(formula)
-#        auc = calculate_auc(x, y)
-#        print(auc)
-#
+def nth_triangle(n):
+    return (math.pow(n,2) + n)/2
+
 ########################################################################
 
 

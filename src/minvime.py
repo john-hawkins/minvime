@@ -9,6 +9,7 @@ from werkzeug.utils import secure_filename
 from pathlib import Path
 import os
 
+from .estimator_classification import simplicity_estimate
 from .estimator_classification import estimate_intervention_requirements
 from .estimator_classification import estimate_binary_model_requirements
 
@@ -93,8 +94,9 @@ def analyse():
     auc = round(auc, 3)
     prec = round(prec, 3)
     recall = round(recall, 3)
+    simp = round( simplicity_estimate(tp, fp, cases, baserate, minroi), 6)
 
-    return render_template("analyse.html", auc=auc, precision=prec, recall=recall,
+    return render_template("analyse.html", auc=auc, precision=prec, recall=recall, simplicity=simp,
         tp=tp, fp=fp, tn=tn, fn=fn, cases=cases, baserate=baserate, minroi=minroi, fprs=fprs, tprs=tprs)
 
 # ###################################################################################
@@ -150,8 +152,10 @@ def analyse_intervention():
     prec = round(prec, 3)
     recall = round(recall, 3)
 
+    simp = round( simplicity_estimate(tp, fp, cases, baserate, minroi), 6)
+
     return render_template("analyse_intervention.html",
-        auc=auc, precision=prec, recall=recall,
+        auc=auc, precision=prec, recall=recall, simplicity=simp,
         minroi=minroi, cases=cases, baserate=baserate,
         cost=cost, payoff=payoff, payback=payback,
         succrate=succrate, backfire=backfire, fprs=fprs, tprs=tprs

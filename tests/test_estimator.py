@@ -34,3 +34,9 @@ def test_auc():
     auc = esti.calculate_auc([0,0.1,0.5,1],[0,0.2,0.7,1])
     assert(auc) == 0.615
 
+def test_simplicity_estimate():
+    simp =  esti.simplicity_estimate(10,-2,30,0.33,200)
+    assert(simp) == 0.000
+
+    simp =  esti.simplicity_estimate(1,-1,10,0.5,1)
+    assert(simp) == 0.4
