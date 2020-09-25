@@ -1,10 +1,6 @@
 import sys
 import pytest
-import src.generator as gen  # The file ../src/generator.py
-
-"""
-This file (test_estimator.py) contains the unit tests for the minvime/estimator.py file.
-"""
+import minvime.generator as gen  # The file ../minvime/generator.py
 
 def test_min_max_baseline():
     temp = gen.generate_min_max_baseline(10,100,1000)

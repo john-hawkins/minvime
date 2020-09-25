@@ -1,8 +1,9 @@
 # -*- coding: utf-8 -*-
 
-"""minvime: provides entry point main() which loads the Flask app."""
-
-__version__ = "0.1.0"
+"""
+    minvime: This file define the flask application and endpoints
+    it also provides the entry point main() which loads the Flask app.
+"""
 
 from flask import Flask, flash, request, redirect, render_template, url_for, make_response
 from werkzeug.utils import secure_filename
@@ -18,10 +19,6 @@ from .estimator_regression import produce_distribution_sample
 from .estimator_regression import estimate_model_requirements_proportional
 from .estimator_regression import estimate_model_requirements_thresholded
 
-#import .estimator as esti # The file minvime/estimator.py
-
-#import .estimator_for_regression as r_esti # The minvime/estimator_for_regression.py
-
 UPLOAD_FOLDER = './uploads'
 
 ALLOWED_EXTENSIONS = set(['csv'])
@@ -29,14 +26,17 @@ def allowed_file(filename):
     return '.' in filename and \
            filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
 
-app = Flask(__name__)
+from pkg_resources import resource_filename
+filepath = resource_filename(__name__, 'templates')
+
+app = Flask(__name__, template_folder=filepath)
 
 # ###################################################################################
-#    MAIN APPLICATION ENTRY POINT
-#      With debug=True, Flask server will auto-reload
-#      when there are code changes
-def main():
-    app.run(port=5000, debug=True)
+# MAIN APPLICATION ENTRY POINT
+#      With debug=True, Flask server will auto-reload when there are code changes
+#
+def main(port=5000, debug=False):
+    app.run(port=port, debug=debug)
 
 
 # ###################################################################################

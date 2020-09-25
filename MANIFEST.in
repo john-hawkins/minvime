@@ -1,0 +1,3 @@
+recursive-include minvime/templates *
+recursive-include minvime/static * 
+recursive-include minvime/uploads * 

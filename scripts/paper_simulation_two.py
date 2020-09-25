@@ -3,8 +3,8 @@ import pandas as pd
 from mpl_toolkits import mplot3d 
 import matplotlib.pyplot as plt
 
-sys.path.append('../src')
-import estimator_classification as esti # The file ../src/estimator_classification.py
+sys.path.append('../minvime')
+import estimator_classification as esti # The file ../minvime/estimator_classification.py
 
 tp = 0
 fp = 0

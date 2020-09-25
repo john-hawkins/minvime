@@ -1,13 +1,7 @@
 import sys
 import pytest
-import src.estimator_classification as esti # The file ../src/estimator_classification.py
+import minvime.estimator_classification as esti # The file ../minvime/estimator_classification.py
 import numpy as np
-#np.seterr('raise')
-
-"""
-This file (test_estimator.py) contains the unit tests for the minvime/estimator_classification.py file.
-"""
-
 
 def test_estimate_model_requirements():
     """

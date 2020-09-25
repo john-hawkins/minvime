@@ -1,8 +1,8 @@
 import sys
 import pandas as pd
 
-sys.path.append('../src')
-import estimator_classification as esti # The file ../src/estimator_classification.py
+sys.path.append('../minvime')
+import estimator_classification as esti # The file ../minvime/estimator_classification.py
 
 tps = [20000,10000,8000,6000,4000,2000,1000,500]
 fps = [-1000,-900,-800,-600,-500,-400,-200,-100]

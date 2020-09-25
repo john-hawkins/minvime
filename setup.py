@@ -7,7 +7,7 @@ from setuptools import setup
  
 version = re.search(
         '^__version__\s*=\s*"(.*)"',
-        open('src/minvime.py').read(),
+        open('minvime/__init__.py').read(),
         re.M
     ).group(1)
  
@@ -18,9 +18,9 @@ setup(
     name = "minvime",
     packages = ["minvime"],
     license = "MIT",
-    install_requires = ['pandas>=0.25.3', 'numpy>=1.16.4'],
+    install_requires = ['pandas>=0.25.3', 'numpy>=1.16.4', 'Flask==1.1.1', 'matplotlib==3.1.0'],
     entry_points = {
-        "console_scripts": ['minvime = src.minvime:main']
+        "console_scripts": ['minvime = minvime.minvime:main']
     },
     include_package_data=True,
     version = version,
