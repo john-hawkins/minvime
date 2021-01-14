@@ -15,7 +15,7 @@ fplim = (30-(M/b)) * (b/c)
 fig = plt.figure(figsize=(12,5))
 ax = fig.add_subplot(111)
 ax.plot(x, ll, '--r', lw=1, label='$tp = \\frac{C \cdot fp}{B}$')
-ax.plot(x, ul, '-k', lw=1, label='$tp = \\frac{C \cdot fp - M}{B}$')
+ax.plot(x, ul, '-k', lw=1, label='$tp = \\frac{C \cdot fp + M}{B}$')
 ax.plot([0,0], [M/b,100], ':b', lw=8, label="$N \cdot r - \\frac{M}{B}$")
 ax.plot([0,fplim], [30,30], ':g', lw=8, label="$\\frac{B}{C} \cdot (N \cdot r - \\frac{M}{B})$")
 
