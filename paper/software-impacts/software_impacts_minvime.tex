@@ -106,15 +106,54 @@ data science \sep machine learning \sep project management \sep estimation
 
 \section{Introduction}
 
-Machine learning projects are typically undertaken with an expectation
-that they will add some value to a process used by a system or organisation.
-This value relies on both the performance characteristics of the model
+Machine learning projects are undertaken with an expectation
+that they will add some value to the process in which they will be used.
+The value relies on both the performance characteristics of the model
 and the characteristics of the business application. In spite of the
 feasibility being heavily dependant on the business characteristics of
-the problem, the machine learning literature focuses on improving the
-model performance in a manner disconnected from the application.
+the problem there has not been a consistent effort to provide tools and
+techniques to estimate it.
 
-The focus of cost-sensitive machine learning literature
+The machine learning literature includes implementation considerations
+for improving model performance. For example, through development of domain 
+specific methods such as designing loss functions for specific applications 
+(See \cite{Johnson19}, \cite{Hennig2007}). Historically, the field of  
+cost sensitive learning \cite{Domingos1999,Margineantu2000,Elkan2001,Tian+Zhang2019}
+developed general techniques to learn a solution that is tuned to the
+specifics of business problem (for example \cite{Fatlawi2017}). 
+In general, you can achieve the same outcome by learning a well calibrated 
+probability estimator and adjusting the decision threshold
+on the basis of the cost matrix \cite{Nikolaou2016}.
+The cost matrix approach to analysing a binary classifier can be also be used to estimate its expected ROI \cite{Ylijoki2018}.
+
+These approaches allow you to improve and customise a model for a given application, 
+but they do not help you decide if the project is economically viable in the first place. 
+There have been extensive efforts to characterise project
+complexity in terms of data set requirements for given performance 
+criteria \cite{Raudys1991}, however the task of determining these criteria 
+from business requirements has not, to our knowledge, been addressed.
+Fortunately, some of the machinery for the cost matrix
+analysis can be used in reverse to estimate the baseline performance 
+a model would require to reach minimal ROI expectations.
+
+We use the framework of a cost matrix to develop a method for estimating 
+the minimum viable binary classification
+model that satisifies a quantitative definition of the business requirements. 
+We demonstrate that a lower bound
+on \textit{precision} can be calculated \textit{a priori}, 
+but that most other metrics require knowledge of either the expected number
+of false positives or false negatives. We devise an additional 
+\textit{simplicity} metric which allows for direct
+comparison between machine learning projects purely on the basis of the business criteria. Finally, we demonstrate
+that lower bounds on the AUC and other metrics can be estimated through numerical simulation of the ROC plot.
+
+We use the minvime ROC simulator to conduct a range of experiments to explore the manner in which the minimum viable
+model changes with the dimensions of the problem landscape.
+The results of these simulations are presented in a manner to help develop
+intuitions about the feasibility of machine learning projects.
+
+
+
 
 \textbf{Main text}\\
 Maximum 3 pages (excluding metadata, tables, figures, references)\\
@@ -134,10 +173,13 @@ The description of your software  shall include:
 \item Mentions (if applicable) of any ongoing research projects using the software. 
 \item A list of all scholarly publications enabled by the software.
 \end{itemize}
+
+
 \section*{Acknowledgements}
 \label{}
 
-Optionally thank people and institutes you need to acknowledge. 
+Thanks to the Translational Artifical Intelligence Group.
+
 \section*{References}
 
 %% The Appendices part is started with the command \appendix;
@@ -154,19 +196,16 @@ Optionally thank people and institutes you need to acknowledge.
 %%  \bibliographystyle{elsarticle-num} 
 %%  \bibliography{<your bibdatabase>}
 
+\bibliographystyle{elsarticle-num}
+
+\bibliography{refs}
+
 %% else use the following coding to input the bibitems directly in the
 %% TeX file.
 
-\begin{thebibliography}{00}
-
-%% \bibitem{label}
-%% Text of bibliographic item
-
-\bibitem{}
-
-\end{thebibliography}
 
 \section*{Illustrative Examples}
+
 Optional : you may include one explanatory  video that will appear next to your article, in the right hand side panel. (Please upload any video as a single supplementary file with your article. Only one MP4 formatted, with 50MB maximum size, video is possible per article. Recommended video dimensions are 640 x 480 at a maximum of 30 frames / second. Prior to submission please test and validate your .mp4 file at  \url{http://elsevier-apps.sciverse.com/GadgetVideoPodcastPlayerWeb/verification} . This tool will display your video exactly in the same way as it will appear on ScienceDirect. )
 
 
@@ -176,64 +215,32 @@ Optional : you may include one explanatory  video that will appear next to your 
 \section*{Current code version}
 \label{}
 
-Ancillary data table required for subversion of the codebase. Kindly replace examples in right column with the correct information about your current code, and leave the left column as it is.
-
 \begin{table}[!h]
 \begin{tabular}{|l|p{6.5cm}|p{6.5cm}|}
 \hline
-\textbf{Nr.} & \textbf{Code metadata description} & \textbf{Please fill in this column} \\
+\textbf{Nr.} & \textbf{Code metadata description} & \textbf{} \\
 \hline
-C1 & Current code version & For example v42 \\
+C1 & Current code version & V1.0.0 \\
 \hline
-C2 & Permanent link to code/repository used for this code version & For example: $https://github.com/mozart/mozart2$ \\
+C2 & Permanent link to code/repository & https://github.com/john-hawkins/minvime \\
 \hline
-C3  & Permanent link to Reproducible Capsule & \\
+C3  & Permanent link to Reproducible Capsule & https://pypi.org/project/minvime/ \\
 \hline
-C4 & Legal Code License   & List one of the approved licenses \\
+C4 & Legal Code License   & MIT \\
 \hline
-C5 & Code versioning system used & For example svn, git, mercurial, etc. put none if none \\
+C5 & Code versioning system used & git \\
 \hline
-C6 & Software code languages, tools, and services used & For example C++, python, r, MPI, OpenCL, etc. \\
+C6 & Software code languages, tools, and services & Python3\\
 \hline
-C7 & Compilation requirements, operating environments \& dependencies & \\
+C7 & Compilation requirements, operating environments \& dependencies & Python3, Flask, numpy, pandas, matplotlib\\
+\\
 \hline
-C8 & If available Link to developer documentation/manual & For example: $http://mozart.github.io/documentation/$ \\
+C8 & If available Link to developer documentation/manual & \\
 \hline
 C9 & Support email for questions & \\
 \hline
 \end{tabular}
 \caption{Code metadata (mandatory)}
-\label{} 
-\end{table}
-
-\section*{Current executable software version}
-\label{}
-
-Ancillary data table required for sub version of the executable software: (x.1, x.2 etc.) kindly replace examples in right column with the correct information about your executables, and leave the left column as it is.
-
-\begin{table}[!h]
-\begin{tabular}{|l|p{6.5cm}|p{6.5cm}|}
-\hline
-\textbf{Nr.} & \textbf{(Executable) software metadata description} & \textbf{Please fill in this column} \\
-\hline
-S1 & Current software version & For example 1.1, 2.4 etc. \\
-\hline
-S2 & Permanent link to executables of this version  & For example: $https://github.com/combogenomics/$ $DuctApe/releases/tag/DuctApe-0.16.4$ \\
-\hline
-S3  & Permanent link to Reproducible Capsule & \\
-\hline
-S4 & Legal Software License & List one of the approved licenses \\
-\hline
-S5 & Computing platforms/Operating Systems & For example Android, BSD, iOS, Linux, OS X, Microsoft Windows, Unix-like , IBM z/OS, distributed/web based etc. \\
-\hline
-S6 & Installation requirements \& dependencies & \\
-\hline
-S7 & If available, link to user manual - if formally published include a reference to the publication in the reference list & For example: $http://mozart.github.io/documentation/$ \\
-\hline
-S8 & Support email for questions & \\
-\hline
-\end{tabular}
-\caption{Software metadata (optional)}
 \label{} 
 \end{table}
 
