@@ -107,106 +107,80 @@ data science \sep machine learning \sep project management \sep estimation
 \section{Introduction}
 
 Machine learning projects are undertaken with an expectation
-that they will add some value to the process in which they will be used.
-The value relies on both the performance characteristics of the model
-and the characteristics of the business application. In spite of the
-feasibility being heavily dependant on the business characteristics of
-the problem there has not been a consistent effort to provide tools and
-techniques to estimate it.
+that they will add value to the process in which they will be used.
+The value added depends on both the performance characteristics of the model
+and the characteristics of the business application. These dual sets
+of constraints mean that for any specific business problem there is an
+in principal minimally performant model that provides the minimal required
+value.
 
-The machine learning literature includes implementation considerations
-for improving model performance. For example, through development of domain 
-specific methods such as designing loss functions for specific applications 
-(See \cite{Johnson19}, \cite{Hennig2007}). Historically, the field of  
-cost sensitive learning \cite{Domingos1999,Margineantu2000,Elkan2001,Tian+Zhang2019}
-developed general techniques to learn a solution that is tuned to the
-specifics of business problem (for example \cite{Fatlawi2017}). 
-In general, you can achieve the same outcome by learning a well calibrated 
-probability estimator and adjusting the decision threshold
-on the basis of the cost matrix \cite{Nikolaou2016}.
-The cost matrix approach to analysing a binary classifier can be also be used to estimate its expected ROI \cite{Ylijoki2018}.
+MinViME is a software application that allows developers and data scientists
+to estimate the minimal performance characteristics of a machine learning
+model for a specific application. The user enters the specification of the problem
+and the costs and benefits of the decision scenario the model will assist with.
+This structure follows the cost matrix analysis used in the cost sensitive learning
+literature \cite{Domingos1999,Margineantu2000,Elkan2001,Tian+Zhang2019}, and
+elsewhere used to adjust the decision threshold of classifier systems \cite{Nikolaou2016}
+and estimate the ROI of machine learning solutions \cite{Ylijoki2018}.
+ 
+In our theoretical work we demonstrated that the MinViME system can produce a range of metrics 
+from both analytical and numerical techniques \cite{Hawkins2020}. These metrics include: 
+minimal \textit{precision}, estimated \textit{AUC} and a novel \textit{simplicity}  
+metric which allows for direct comparison between machine learning projects purely 
+on the basis of the business criteria.
 
-These approaches allow you to improve and customise a model for a given application, 
-but they do not help you decide if the project is economically viable in the first place. 
-There have been extensive efforts to characterise project
-complexity in terms of data set requirements for given performance 
-criteria \cite{Raudys1991}, however the task of determining these criteria 
-from business requirements has not, to our knowledge, been addressed.
-Fortunately, some of the machinery for the cost matrix
-analysis can be used in reverse to estimate the baseline performance 
-a model would require to reach minimal ROI expectations.
+\section{Architecture}
 
-We use the framework of a cost matrix to develop a method for estimating 
-the minimum viable binary classification
-model that satisifies a quantitative definition of the business requirements. 
-We demonstrate that a lower bound
-on \textit{precision} can be calculated \textit{a priori}, 
-but that most other metrics require knowledge of either the expected number
-of false positives or false negatives. We devise an additional 
-\textit{simplicity} metric which allows for direct
-comparison between machine learning projects purely on the basis of the business criteria. Finally, we demonstrate
-that lower bounds on the AUC and other metrics can be estimated through numerical simulation of the ROC plot.
+The MinViME application consists of an underlying API that can be used inside custom
+applications and simulations. In addition the package installs a web based graphical
+used interface that is deployed as a flask application. The input screen depicted
+in Figure \ref{screen1} allows a user to configure the characteristics of the business
+problem. 
 
-We use the minvime ROC simulator to conduct a range of experiments to explore the manner in which the minimum viable
-model changes with the dimensions of the problem landscape.
-The results of these simulations are presented in a manner to help develop
-intuitions about the feasibility of machine learning projects.
+\begin{figure}[h!]
+\includegraphics[scale=0.5]{images/Screen1.png}
+\caption{MinViME Web Application Problem Input Screen}
+\label{screen1}
+\end{figure}
 
+Upon submission, the system makes the API calls to generate analytical and
+numerically simulated estimates of the minimum viable model's performance. The results
+are shown in Figure \ref{screen2}.
 
+\begin{figure}[h!]
+\includegraphics[scale=0.5]{images/Screen2.png}
+\caption{MinViME Web Application Results Screen}
+\label{screen2}
+\end{figure}
 
+\section{Impact}
 
-\textbf{Main text}\\
-Maximum 3 pages (excluding metadata, tables, figures, references)\\
+The MinViME package has permitted us to run simulation experiments to answer questions
+about the relationship between the landscape of business problems and viable models 
+\cite{Hawkins2020}.
+These simulations form the basis of a new form of heuristic for managers of data science
+and machine learning projects.
 
-\noindent
-The description of your software  shall include:
-\begin{itemize}
-\item A short description of the high-level functionality and purpose of the software for a diverse, non-specialist audience
-\item An Impact overview that illustrates the purpose of the software and its achieved results:
-\begin{itemize}
-\item[-] Indicate in what way, and to what extent, the pursuit of existing research questions is improved. 
-\item[-] Indicate in what way new research questions can be pursued because of the software.
-\item[-] Indicate in what way the software has changed the daily practice of its users.
-\item[-] Indicate how widespread the use of the software is within and outside the intended user group.
-\item[-] Indicate in what way the software is used in commercial settings and/or how it led to the creation of spin-off companies (if so).
-\end{itemize}
-\item Mentions (if applicable) of any ongoing research projects using the software. 
-\item A list of all scholarly publications enabled by the software.
-\end{itemize}
+Through analysis of the PyPi package datasets (https://packaging.python.org/)
+we determined that the MinViME package has been installed 
+by $>640$ users since its release 6 month ago. Then monthly downloads remain at $~60$
+per month.
 
 
-\section*{Acknowledgements}
-\label{}
+\section{Future Work}
 
-Thanks to the Translational Artifical Intelligence Group.
+We are currently working on extensions of the MinViME API to allow estimation of 
+minimal viable models for regression and time series forecasting problems. 
+This will lead to subsequent simulation work in exploring the problem difficulty landscape
+for these classes of problems. We anticipate that these API's will find additional
+utility for engineers building automated machine learning systems that are tasked
+with determining whether the cost of training a model is justified by the likelihood
+of success.
 
-\section*{References}
-
-%% The Appendices part is started with the command \appendix;
-%% appendix sections are then done as normal sections
-%% \appendix
-
-%% \section{}
-%% \label{}
-
-%% References:
-%% If you have bibdatabase file and want bibtex to generate the
-%% bibitems, please use
-%%
-%%  \bibliographystyle{elsarticle-num} 
-%%  \bibliography{<your bibdatabase>}
 
 \bibliographystyle{elsarticle-num}
 
 \bibliography{refs}
-
-%% else use the following coding to input the bibitems directly in the
-%% TeX file.
-
-
-\section*{Illustrative Examples}
-
-Optional : you may include one explanatory  video that will appear next to your article, in the right hand side panel. (Please upload any video as a single supplementary file with your article. Only one MP4 formatted, with 50MB maximum size, video is possible per article. Recommended video dimensions are 640 x 480 at a maximum of 30 frames / second. Prior to submission please test and validate your .mp4 file at  \url{http://elsevier-apps.sciverse.com/GadgetVideoPodcastPlayerWeb/verification} . This tool will display your video exactly in the same way as it will appear on ScienceDirect. )
 
 
 \section*{Required Metadata}
@@ -233,11 +207,10 @@ C5 & Code versioning system used & git \\
 C6 & Software code languages, tools, and services & Python3\\
 \hline
 C7 & Compilation requirements, operating environments \& dependencies & Python3, Flask, numpy, pandas, matplotlib\\
-\\
 \hline
 C8 & If available Link to developer documentation/manual & \\
 \hline
-C9 & Support email for questions & \\
+C9 & Support email for questions & john@getting-data-science-done.com \\
 \hline
 \end{tabular}
 \caption{Code metadata (mandatory)}
