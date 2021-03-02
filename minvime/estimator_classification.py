@@ -8,7 +8,34 @@ import math
 ######################################################################
 
 def estimate_binary_model_requirements(tp, fp, tn, fn, cases, baserate, minroi=0):
-    """ Determine the minimal performance characteristics of a binary classification model """
+    """
+    Determine the minimal performance characteristics of a binary classification model
+
+    :param tp: The benefit of a True Positive Prediction
+    :type tp: float, required 
+    :param fp: The cost of a False Positive Prediction
+    :type fp: float, required 
+    :param tn: The benefit of a True Negative Prediction
+    :type tn: float, required 
+    :param fn: The cost of a False Negative Prediction
+    :type fn: float, required 
+
+    :param cases: The number of events/cases that occur within the period of analysis.
+    :type cases: integer, required 
+    :param baserate: The rate at which the event being predicted occurs
+    :type baserate: float, required 
+    :param minroi: The minimum required ROI for the model, defaults to 0.0
+    :type minroi: float, optional
+
+    *Returns a tuple containing
+    min_auc, 
+    min_precision, 
+    min_recall, 
+    fprates 
+    tprs
+
+    """
+
     beta_range = [2, 3, 4, 5, 6, 8, 10, 12, 14, 16, 20, 25, 30, 35, 40, 45, 50, 60, 70, 80, 90, 100 ]
     alpha_range = [0.01, 0.03, 0.05, 0.1, 0.15, 0.2, 0.25, 0.3, 0.35, 0.4, 0.45, 0.5, 0.55, 
                    0.6, 0.65, 0.7, 0.75, 0.8, 0.85, 0.9, 0.93, 0.95, 0.97, 0.99]

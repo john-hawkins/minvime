@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
 
 """
-    minvime: This file define the flask application and endpoints
-    it also provides the entry point main() which loads the Flask app.
+    MinViME is a flask application allowing users to estimate minimal
+    viable models for machine learning projects.
 """
 
 from flask import Flask, flash, request, redirect, render_template, url_for, make_response
@@ -36,6 +36,17 @@ app = Flask(__name__, template_folder=filepath)
 #      With debug=True, Flask server will auto-reload when there are code changes
 #
 def main(port=5000, debug=False):
+    """
+    Launch the minvime Flask application.
+ 
+    :param port: The port to launch the app on, defaults to 5000
+    :type port: integer, optional
+
+    :param debug: Enable debug mode -- print errors to the console, defaults to False
+    :type debug: boolean, optional)
+
+    """
+
     app.run(port=port, debug=debug)
 
 
@@ -49,6 +60,10 @@ def index():
 # Cost Benefit Page
 @app.route('/payoff_matrix', methods = ['POST', 'GET'])
 def payoff_matrix():
+    """
+    Renders the payoff matrix page.
+    Expects parameters from http session.
+    """
     tp = 2000
     fp = -150
     tn = 0
@@ -71,6 +86,10 @@ def payoff_matrix():
 # ###################################################################################
 @app.route('/analyse', methods = ['POST', 'GET'])
 def analyse():
+    """
+    Renders the analysis page.
+    Expects parameters from http session.
+    """
     if 'tp' in request.values:
         tp = float(request.form["tp"])
         fp = float(request.form["fp"])
@@ -103,6 +122,10 @@ def analyse():
 # Intervention Page
 @app.route('/intervention')
 def intervention():
+    """
+    Renders the intervention page.
+    Expects parameters from http session.
+    """
     minroi = 10000
     cases = 1000000
     cost  = -10
@@ -122,6 +145,10 @@ def intervention():
 # analyse Intervention Page
 @app.route('/analyse_intervention', methods = ['POST', 'GET'])
 def analyse_intervention():
+    """
+    Renders the intervention analysis page.
+    Expects parameters from http session.
+    """
     if 'payoff' in request.values:
        cases = float(request.form["cases"])
        cost = float(request.form["cost"])
@@ -165,6 +192,12 @@ def analyse_intervention():
 #
 @app.route('/proportional', methods = ['POST', 'GET'])
 def proportional():
+    """
+    Renders the business context specification page for 
+    regression problems in which the costs/benefits are proprtional
+    to the size of the error.
+    Expects parameters from http session.
+    """
     minroi = 10000
     cases = 10000
     pred_value = 100
@@ -183,6 +216,10 @@ def proportional():
 # Analyse Proportional Costs for a Regression Problem
 @app.route('/analyse_proportional', methods = ['POST', 'GET'])
 def analyse_proportional():
+    """
+    Renders the analysis of proportional regression problems page.
+    Expects parameters from http session.
+    """
     minroi = float(request.form["minroi"])
     cases = float(request.form["cases"])
     pred_value = float(request.form["pred_value"])
@@ -232,6 +269,11 @@ def analyse_proportional():
 #
 @app.route('/thresholded')
 def thresholded():
+    """
+    Renders the business context collection page, for problems where the
+    impact is related to a threshold value in the model error.
+    Expects parameters from http session.
+    """
     minroi = 10000
     cases = 10000
     pred_value = 100
@@ -253,6 +295,10 @@ def thresholded():
 # Analyse thresholded Costs for a Regression Problem
 @app.route('/analyse_thresholded', methods = ['POST', 'GET'])
 def analyse_thresholded():
+    """
+    Renders the thresholded regression problem analysis page.
+    Expects parameters from http session.
+    """
     minroi = float(request.form["minroi"])
     cases = float(request.form["cases"])
     pred_value = float(request.form["pred_value"])
