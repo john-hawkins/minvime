@@ -65,7 +65,7 @@
 %% \address{Address\fnref{label3}}
 %% \fntext[label3]{}
 
-\title{MinViME/Minium Viable Model Estimator}
+\title{MinViME / Minimum Viable Model Estimator}
 
 %% use optional labels to link authors explicitly to addresses:
 %% \author[label1,label2]{}
@@ -78,12 +78,14 @@
 
 \begin{abstract}
 %% Text of abstract 
-MinViME is a python package and web application that allows developers
-to estimate the performance characteristics of a Minimum Viable Machine Learning Model for a specific
-problem. It has been used to evaluate the feasibility of machine learning projects
-, prioriotize among projects, and run simulations to explore the
-structure of the difficulty landscape across multiple dimensions
-of business problems.
+MinViME is a python package and web application that allows scientists and engineers
+to estimate a lower bound on the performance characteristics of a machine
+learning model for a problem with well quantified characteristics. 
+
+It is used to evaluate the feasibility of machine learning projects, 
+prioritize among multiple competing projects, and run simulations to explore the
+structure of the difficulty landscape in a multi-dimensional 
+space of potential problems.
 
 \end{abstract}
 
@@ -109,9 +111,9 @@ data science \sep machine learning \sep project management \sep estimation
 Machine learning projects are undertaken with an expectation
 that they will add value to the process in which they will be used.
 The value added depends on both the performance characteristics of the model
-and the characteristics of the business application. These dual sets
-of constraints mean that for any specific business problem there is an
-in principal minimally performant model that provides the minimal required
+and the characteristics of the domain of application. These dual sets
+of constraints mean that for any specific problem there is an
+{\it in-principal} minimally performant model that would provide the required
 value.
 
 MinViME is a software application that allows developers and data scientists
@@ -132,10 +134,12 @@ on the basis of the business criteria.
 \section{Architecture}
 
 The MinViME application consists of an underlying API that can be used inside custom
-applications and simulations. In addition the package installs a web based graphical
+applications and simulations. The API exposes methods for generating estimated model
+performance from numerical quantification of the problem.
+In addition the package installs a web based graphical
 used interface that is deployed as a flask application. The input screen depicted
 in Figure \ref{screen1} allows a user to configure the characteristics of the business
-problem. 
+scenario. 
 
 \begin{figure}[h!]
 \includegraphics[scale=0.5]{images/Screen1.png}
@@ -145,8 +149,8 @@ problem.
 
 Upon submission, the system makes the API calls to generate analytical and
 numerically simulated estimates of the minimum viable model's performance. The results
-are shown in Figure \ref{screen2}.
-
+are presented as a table of metrics and plot of the estimated ROC plot (shown in Figure \ref{screen2}), which allows us to present an estimated AUC\cite{Bradley97}.
+ 
 \begin{figure}[h!]
 \includegraphics[scale=0.5]{images/Screen2.png}
 \caption{MinViME Web Application Results Screen}
@@ -156,15 +160,15 @@ are shown in Figure \ref{screen2}.
 \section{Impact}
 
 The MinViME package has permitted us to run simulation experiments to answer questions
-about the relationship between the landscape of business problems and viable models 
-\cite{Hawkins2020}.
-These simulations form the basis of a new form of heuristic for managers of data science
+about the relationship between the landscape of business problems and the minimum 
+viable models that would solve them \cite{Hawkins2020}.
+These simulations form the basis of a new set of heuristics for managers of data science
 and machine learning projects.
 
-Through analysis of the PyPi package datasets (https://packaging.python.org/)
+Through analysis of the PyPi package datasets (packaging.python.org)
 we determined that the MinViME package has been installed 
-by $>640$ users since its release 6 month ago. Then monthly downloads remain at $~60$
-per month.
+by $>640$ users since its release 6 month ago, and the monthly downloads 
+remain at $~60$ per month.
 
 
 \section{Future Work}
@@ -172,16 +176,17 @@ per month.
 We are currently working on extensions of the MinViME API to allow estimation of 
 minimal viable models for regression and time series forecasting problems. 
 This will lead to subsequent simulation work in exploring the problem difficulty landscape
-for these classes of problems. We anticipate that these API's will find additional
-utility for engineers building automated machine learning systems that are tasked
-with determining whether the cost of training a model is justified by the likelihood
-of success.
+for these classes of problems. 
+
+We anticipate that these API's will find additional
+utility for scientists and engineers extending the design of automated machine learning
+(AutoML) \cite{zoller2021} systems so that they may determine whether the cost 
+of training a model is justified by the likelihood of success.
 
 
 \bibliographystyle{elsarticle-num}
 
 \bibliography{refs}
-
 
 \section*{Required Metadata}
 \label{}
@@ -208,7 +213,7 @@ C6 & Software code languages, tools, and services & Python3\\
 \hline
 C7 & Compilation requirements, operating environments \& dependencies & Python3, Flask, numpy, pandas, matplotlib\\
 \hline
-C8 & If available Link to developer documentation/manual & \\
+C8 & If available Link to developer documentation/manual & https://minvime.readthedocs.io/ \\
 \hline
 C9 & Support email for questions & john@getting-data-science-done.com \\
 \hline

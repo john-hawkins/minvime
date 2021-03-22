@@ -4,6 +4,8 @@ MinViME - Minimum Viable Model Estimator
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 ![build](https://github.com/john-hawkins/minvime/workflows/build/badge.svg)
 [![PyPI](https://img.shields.io/pypi/v/minvime.svg)](https://pypi.org/project/minvime)
+[![Documentation Status](https://readthedocs.org/projects/minvime/badge/?version=latest)](https://minvime.readthedocs.io/en/latest/?badge=latest)
+  
 
 ```
 STATUS: Functional
