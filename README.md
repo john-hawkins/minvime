@@ -25,9 +25,9 @@ that describe the costs and benefits of the context in which it will be used.
 
 If you use MinViME in academic work please reference the following paper:
 ```
-Hawkins, J.,(2020), Minimum Viable Model Estimates for Machine Learning Projects,
+Hawkins, John.,(2020), Minimum Viable Model Estimates for Machine Learning Projects,
 Proceedings of the 6th International Conference on Computer Science, 
-Engineering And Applications (CSEA 2020), Issue X, Volume X,
+Engineering And Applications (CSEA 2020), pages 37-46, Issue 18, Volume 10,
 DOI: 10.5121/csit.2020.101803
 ```
 
