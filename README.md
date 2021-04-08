@@ -6,6 +6,7 @@ MinViME - Minimum Viable Model Estimator
 [![PyPI](https://img.shields.io/pypi/v/minvime.svg)](https://pypi.org/project/minvime)
 [![Documentation Status](https://readthedocs.org/projects/minvime/badge/?version=latest)](https://minvime.readthedocs.io/en/latest/?badge=latest)
   
+:copyright: 2020 John Hawkins
 
 ```
 STATUS: Functional
@@ -115,4 +116,12 @@ applications or Jupyter Notebooks
 import minvime as mvime
 
 ```
+
+
+# Acknowledgements
+
+Python package built using the
+[bootstrap cmdline template](https://github.com/jgehrcke/python-cmdline-bootstrap)
+ by [jgehrcke](https://github.com/jgehrcke)
+
 
