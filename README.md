@@ -92,6 +92,8 @@ Or simply install the package and use the command line application directly
 Installation from the source tree:
 
 ```
+git clone https://github.com/john-hawkins/minvime
+cd minvime
 python setup.py install
 ```
 

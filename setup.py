@@ -24,14 +24,14 @@ setup(
     },
     include_package_data=True,
     version = version,
-    description = "Python Flask Application for Estimating Minimum Viable Model Performance.",
+    description = "Python Application for Estimating Minimum Viable Model Performance.",
     long_description = long_descr,
     long_description_content_type='text/markdown',
     author = "John Hawkins",
-    author_email = "hawkins.john.c@gmail.com",
-    url = "http://john-hawkins.github.io",
+    author_email = "john@getting-data-science-done.com",
+    url = "http://getting-data-science-done.com",
     project_urls = {
-        'Documentation': "http://john-hawkins.github.io",
+        'Documentation': "https://minvime.readthedocs.io",
         'Source': "https://github.com/john-hawkins/minvime",
         'Tracker': "https://github.com/john-hawkins/minvime/issues" 
       }
