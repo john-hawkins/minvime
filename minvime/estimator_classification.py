@@ -73,9 +73,9 @@ def estimate_binary_model_requirements(tp, fp, tn, fn, cases, baserate, minroi=0
                 current_min_roi = roi
                 tprs = y
             combinations =  combinations + 1
-    print("Tested ", combinations, " different AUC plots")
-    print("Number of Exponents", len(beta_range))
-    print("Number of Alpha Weights", len(alpha_range))
+    #print("Tested ", combinations, " different AUC plots")
+    #print("Number of Exponents", len(beta_range))
+    #print("Number of Alpha Weights", len(alpha_range))
     return min_auc, min_precision, min_recall, np.array(fprates), tprs
 
 ######################################################################
@@ -91,7 +91,7 @@ def generate_roc_auc(fprates, alpha, beta):
 
 def calculate_peak_roi(fprates, tprates, tp, fp, tn, fn, num_pos, num_neg):
    """ Calculate the maximal ROI for a given ROC curve (defined by vectors of FPR and TPR) """
-   roi = -999999
+   roi = -99999999999999
    result_precision = 0.0
    result_recall = 0.0
    for index in range(len(fprates)):
