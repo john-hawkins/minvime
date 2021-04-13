@@ -42,7 +42,7 @@ that satisfy the requirements. The constraints need to be provided as:
 * Information about the volume and frequency of the event you are predicting.
 
 
-See examples in the [scripts directory](paper_simulation_one.py)
+See examples in the [scripts directory](https://github.com/john-hawkins/minvime/tree/master/scripts)
 
 ### For Regression/Time Series Problems
 ```
