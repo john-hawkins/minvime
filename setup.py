@@ -18,7 +18,7 @@ setup(
     name = "minvime",
     packages = ["minvime"],
     license = "MIT",
-    install_requires = ['pandas>=0.25.3', 'numpy>=1.16.4', 'Flask==1.1.1', 'matplotlib==3.1.0'],
+    install_requires = ['pandas>=0.25.3', 'numpy>=1.16.4', 'Flask==2.3.2', 'matplotlib==3.1.0'],
     entry_points = {
         "console_scripts": ['minvime = minvime.minvime:main']
     },
