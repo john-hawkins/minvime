@@ -23,10 +23,9 @@ MinViME depends on the following packages:
 
 .. code-block:: bash
 
-    Flask==1.1.1
-    numpy>=1.16.4
-    pandas>=0.25.3
-    matplotlib==3.1.0
-
+    Flask
+    numpy
+    pandas
+    matplotlib
 
 
